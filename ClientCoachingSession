@@ -1,0 +1,61 @@
+When
+    [Case
+        (Deposit
+            (Role "Client")
+            (Role "Client")
+            (Token "" "")
+            (Constant 50)
+        )
+        (When
+            [Case
+                (Choice
+                    (ChoiceId
+                        "Train"
+                        (Role "Client")
+                    )
+                    [Bound 1 3]
+                )
+                (If
+                    (ValueEQ
+                        (ChoiceValue
+                            (ChoiceId
+                                "Train"
+                                (Role "Client")
+                            ))
+                        (Constant 1)
+                    )
+                    (Pay
+                        (Role "Client")
+                        (Party (Role "Coach"))
+                        (Token "" "")
+                        (Constant 50)
+                        Close 
+                    )
+                    (If
+                        (ValueEQ
+                            (ChoiceValue
+                                (ChoiceId
+                                    "Train"
+                                    (Role "Client")
+                                ))
+                            (Constant 2)
+                        )
+                        (Pay
+                            (Role "Client")
+                            (Party (Role "Coach"))
+                            (Token "" "")
+                            (Constant 10)
+                            Close 
+                        )
+                        (Pay
+                            (Role "Client")
+                            (Party (Role "Coach"))
+                            (Token "" "")
+                            (Constant 25)
+                            Close 
+                        )
+                    )
+                )]
+            8 Close 
+        )]
+    7 Close 
