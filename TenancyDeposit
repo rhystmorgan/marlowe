@@ -1,0 +1,183 @@
+When
+    [Case
+        (Deposit
+            (Role "Landlord")
+            (Role "James")
+            (Token "" "")
+            (Constant 100)
+        )
+        (When
+            [Case
+                (Choice
+                    (ChoiceId
+                        "Accepts Tenant"
+                        (Role "Landlord")
+                    )
+                    [Bound 1 2]
+                )
+                (If
+                    (ValueEQ
+                        (ChoiceValue
+                            (ChoiceId
+                                "Accepts Tenant"
+                                (Role "Landlord")
+                            ))
+                        (Constant 1)
+                    )
+                    (When
+                        [Case
+                            (Deposit
+                                (Role "Landlord")
+                                (Role "James")
+                                (Token "" "")
+                                (Constant 900)
+                            )
+                            (When
+                                [Case
+                                    (Choice
+                                        (ChoiceId
+                                            "Terminate Tenancy"
+                                            (Role "James")
+                                        )
+                                        [Bound 1 2]
+                                    )
+                                    (If
+                                        (ValueEQ
+                                            (ChoiceValue
+                                                (ChoiceId
+                                                    "Terminate Tenancy"
+                                                    (Role "James")
+                                                ))
+                                            (Constant 1)
+                                        )
+                                        (When
+                                            [Case
+                                                (Choice
+                                                    (ChoiceId
+                                                        "Damaged Property"
+                                                        (Role "Landlord")
+                                                    )
+                                                    [Bound 1 2]
+                                                )
+                                                (If
+                                                    (ValueEQ
+                                                        (ChoiceValue
+                                                            (ChoiceId
+                                                                "Damaged Property"
+                                                                (Role "Landlord")
+                                                            ))
+                                                        (Constant 1)
+                                                    )
+                                                    (Pay
+                                                        (Role "Landlord")
+                                                        (Party (Role "James"))
+                                                        (Token "" "")
+                                                        (Constant 1000)
+                                                        Close 
+                                                    )
+                                                    Close 
+                                                )]
+                                            1
+                                            (Pay
+                                                (Role "Landlord")
+                                                (Party (Role "James"))
+                                                (Token "" "")
+                                                (Constant 1000)
+                                                Close 
+                                            )
+                                        )
+                                        (When
+                                            [Case
+                                                (Choice
+                                                    (ChoiceId
+                                                        "Damaged Property"
+                                                        (Role "Landlord")
+                                                    )
+                                                    [Bound 1 2]
+                                                )
+                                                (If
+                                                    (ValueEQ
+                                                        (ChoiceValue
+                                                            (ChoiceId
+                                                                "Damaged Property"
+                                                                (Role "Landlord")
+                                                            ))
+                                                        (Constant 1)
+                                                    )
+                                                    (Pay
+                                                        (Role "Landlord")
+                                                        (Party (Role "James"))
+                                                        (Token "" "")
+                                                        (Constant 1000)
+                                                        Close 
+                                                    )
+                                                    Close 
+                                                )]
+                                            1
+                                            (Pay
+                                                (Role "Landlord")
+                                                (Party (Role "James"))
+                                                (Token "" "")
+                                                (Constant 1000)
+                                                Close 
+                                            )
+                                        )
+                                    )]
+                                12
+                                (When
+                                    [Case
+                                        (Choice
+                                            (ChoiceId
+                                                "Damaged Property"
+                                                (Role "Landlord")
+                                            )
+                                            [Bound 1 2]
+                                        )
+                                        (If
+                                            (ValueEQ
+                                                (ChoiceValue
+                                                    (ChoiceId
+                                                        "Damaged Property"
+                                                        (Role "Landlord")
+                                                    ))
+                                                (Constant 1)
+                                            )
+                                            (Pay
+                                                (Role "Landlord")
+                                                (Party (Role "James"))
+                                                (Token "" "")
+                                                (Constant 1000)
+                                                Close 
+                                            )
+                                            Close 
+                                        )]
+                                    1
+                                    (Pay
+                                        (Role "Landlord")
+                                        (Party (Role "James"))
+                                        (Token "" "")
+                                        (Constant 1000)
+                                        Close 
+                                    )
+                                )
+                            )]
+                        1 Close 
+                    )
+                    (Pay
+                        (Role "Landlord")
+                        (Party (Role "James"))
+                        (Token "" "")
+                        (Constant 100)
+                        Close 
+                    )
+                )]
+            1
+            (Pay
+                (Role "Landlord")
+                (Party (Role "James"))
+                (Token "" "")
+                (Constant 100)
+                Close 
+            )
+        )]
+    1 Close 
