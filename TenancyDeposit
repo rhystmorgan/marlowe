@@ -10,7 +10,7 @@ When
             [Case
                 (Choice
                     (ChoiceId
-                        "Accepts Tenant"
+                        "Accept Tenant"
                         (Role "Landlord")
                     )
                     [Bound 1 2]
@@ -19,7 +19,7 @@ When
                     (ValueEQ
                         (ChoiceValue
                             (ChoiceId
-                                "Accepts Tenant"
+                                "Accept Tenant"
                                 (Role "Landlord")
                             ))
                         (Constant 1)
@@ -32,104 +32,15 @@ When
                                 (Token "" "")
                                 (Constant 900)
                             )
-                            (When
-                                [Case
-                                    (Choice
-                                        (ChoiceId
-                                            "Terminate Tenancy"
-                                            (Role "James")
-                                        )
-                                        [Bound 1 2]
-                                    )
-                                    (If
-                                        (ValueEQ
-                                            (ChoiceValue
-                                                (ChoiceId
-                                                    "Terminate Tenancy"
-                                                    (Role "James")
-                                                ))
-                                            (Constant 1)
-                                        )
-                                        (When
-                                            [Case
-                                                (Choice
-                                                    (ChoiceId
-                                                        "Damaged Property"
-                                                        (Role "Landlord")
-                                                    )
-                                                    [Bound 1 2]
-                                                )
-                                                (If
-                                                    (ValueEQ
-                                                        (ChoiceValue
-                                                            (ChoiceId
-                                                                "Damaged Property"
-                                                                (Role "Landlord")
-                                                            ))
-                                                        (Constant 1)
-                                                    )
-                                                    (Pay
-                                                        (Role "Landlord")
-                                                        (Party (Role "James"))
-                                                        (Token "" "")
-                                                        (Constant 1000)
-                                                        Close 
-                                                    )
-                                                    Close 
-                                                )]
-                                            1
-                                            (Pay
-                                                (Role "Landlord")
-                                                (Party (Role "James"))
-                                                (Token "" "")
-                                                (Constant 1000)
-                                                Close 
-                                            )
-                                        )
-                                        (When
-                                            [Case
-                                                (Choice
-                                                    (ChoiceId
-                                                        "Damaged Property"
-                                                        (Role "Landlord")
-                                                    )
-                                                    [Bound 1 2]
-                                                )
-                                                (If
-                                                    (ValueEQ
-                                                        (ChoiceValue
-                                                            (ChoiceId
-                                                                "Damaged Property"
-                                                                (Role "Landlord")
-                                                            ))
-                                                        (Constant 1)
-                                                    )
-                                                    (Pay
-                                                        (Role "Landlord")
-                                                        (Party (Role "James"))
-                                                        (Token "" "")
-                                                        (Constant 1000)
-                                                        Close 
-                                                    )
-                                                    Close 
-                                                )]
-                                            1
-                                            (Pay
-                                                (Role "Landlord")
-                                                (Party (Role "James"))
-                                                (Token "" "")
-                                                (Constant 1000)
-                                                Close 
-                                            )
-                                        )
-                                    )]
-                                12
+                            (Let
+                                "Tenancy"
+                                SlotIntervalStart 
                                 (When
                                     [Case
                                         (Choice
                                             (ChoiceId
-                                                "Damaged Property"
-                                                (Role "Landlord")
+                                                "Break Contract"
+                                                (Role "James")
                                             )
                                             [Bound 1 2]
                                         )
@@ -137,11 +48,130 @@ When
                                             (ValueEQ
                                                 (ChoiceValue
                                                     (ChoiceId
-                                                        "Damaged Property"
-                                                        (Role "Landlord")
+                                                        "Break Contract"
+                                                        (Role "James")
                                                     ))
                                                 (Constant 1)
                                             )
+                                            (When
+                                                [Case
+                                                    (Choice
+                                                        (ChoiceId
+                                                            "Property Inspection"
+                                                            (Role "Landlord")
+                                                        )
+                                                        [Bound 1 2]
+                                                    )
+                                                    (If
+                                                        (ValueEQ
+                                                            (ChoiceValue
+                                                                (ChoiceId
+                                                                    "Property Inspection"
+                                                                    (Role "Landlord")
+                                                                ))
+                                                            (Constant 1)
+                                                        )
+                                                        (Pay
+                                                            (Role "Landlord")
+                                                            (Party (Role "James"))
+                                                            (Token "" "")
+                                                            (Constant 1000)
+                                                            Close 
+                                                        )
+                                                        Close 
+                                                    )]
+                                                2
+                                                (Pay
+                                                    (Role "Landlord")
+                                                    (Party (Role "James"))
+                                                    (Token "" "")
+                                                    (Constant 1000)
+                                                    Close 
+                                                )
+                                            )
+                                            (Assert
+                                                (ValueEQ
+                                                    (ChoiceValue
+                                                        (ChoiceId
+                                                            "Break Contract"
+                                                            (Role "James")
+                                                        ))
+                                                    (Constant 2)
+                                                )
+                                                (Let
+                                                    "End Tenancy"
+                                                    SlotIntervalEnd 
+                                                    (When
+                                                        [Case
+                                                            (Choice
+                                                                (ChoiceId
+                                                                    "Property Inspection"
+                                                                    (Role "Landlord")
+                                                                )
+                                                                [Bound 1 2]
+                                                            )
+                                                            (If
+                                                                (ValueEQ
+                                                                    (ChoiceValue
+                                                                        (ChoiceId
+                                                                            "Property Inspection"
+                                                                            (Role "Landlord")
+                                                                        ))
+                                                                    (Constant 1)
+                                                                )
+                                                                (Pay
+                                                                    (Role "Landlord")
+                                                                    (Party (Role "James"))
+                                                                    (Token "" "")
+                                                                    (Constant 1000)
+                                                                    Close 
+                                                                )
+                                                                Close 
+                                                            )]
+                                                        13
+                                                        (Pay
+                                                            (Role "Landlord")
+                                                            (Party (Role "James"))
+                                                            (Token "" "")
+                                                            (Constant 1000)
+                                                            Close 
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )]
+                                    12
+                                    (Let
+                                        "End Tenancy"
+                                        SlotIntervalEnd 
+                                        (When
+                                            [Case
+                                                (Choice
+                                                    (ChoiceId
+                                                        "Property Inspection"
+                                                        (Role "Landlord")
+                                                    )
+                                                    [Bound 1 2]
+                                                )
+                                                (If
+                                                    (ValueEQ
+                                                        (ChoiceValue
+                                                            (ChoiceId
+                                                                "Property Inspection"
+                                                                (Role "Landlord")
+                                                            ))
+                                                        (Constant 1)
+                                                    )
+                                                    (Pay
+                                                        (Role "Landlord")
+                                                        (Party (Role "James"))
+                                                        (Token "" "")
+                                                        (Constant 1000)
+                                                        Close 
+                                                    )
+                                                    Close 
+                                                )]
+                                            13
                                             (Pay
                                                 (Role "Landlord")
                                                 (Party (Role "James"))
@@ -149,15 +179,7 @@ When
                                                 (Constant 1000)
                                                 Close 
                                             )
-                                            Close 
-                                        )]
-                                    1
-                                    (Pay
-                                        (Role "Landlord")
-                                        (Party (Role "James"))
-                                        (Token "" "")
-                                        (Constant 1000)
-                                        Close 
+                                        )
                                     )
                                 )
                             )]
